@@ -4,15 +4,19 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 interface Props {
   goalText: string;
   handleDelete: (id: number) => void;
+  id: number;
 }
 
-const GoalItem: FC<Props> = ({ goalText, handleDelete }) => {
+const GoalItem: FC<Props> = ({ goalText, handleDelete, id }) => {
   return (
-    <Pressable>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <Pressable
+        onPress={() => handleDelete(id)}
+        style={({ pressed }) => pressed && styles.pressedItem}
+      >
         <Text style={styles.textColor}>{goalText}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 };
 
@@ -21,12 +25,17 @@ export default GoalItem;
 const styles = StyleSheet.create({
   container: {
     margin: 8,
-    padding: 8,
     borderRadius: 6,
     backgroundColor: "#5e0acc",
   },
 
+  pressedItem: {
+    opacity: 0.5,
+    backgroundColor: "#ccc",
+  },
+
   textColor: {
+    padding: 8,
     color: "#fff",
   },
 });
