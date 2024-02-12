@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { colors } from "../../colors/colors";
 
 const Card: FC<PropsWithChildren> = ({ children }) => (
@@ -8,11 +8,13 @@ const Card: FC<PropsWithChildren> = ({ children }) => (
 
 export default Card;
 
+const devideWidth = Dimensions.get("screen").width;
+
 const styles = StyleSheet.create({
   container: {
-    marginTop: 45,
+    marginTop: devideWidth < 400 ? 18 : 36,
     marginHorizontal: 12,
-    padding: 16,
+    padding: 24,
     backgroundColor: colors.purple,
     borderRadius: 16,
     elevation: 16,
@@ -20,5 +22,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.25,
+    minWidth: "80%",
   },
 });

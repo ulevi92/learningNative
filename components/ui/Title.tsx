@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import { StyleSheet, Text } from "react-native";
+import { Platform, StyleSheet, Text } from "react-native";
 import { colors } from "../../colors/colors";
 
 const Title: FC<PropsWithChildren> = ({ children }) => (
@@ -10,14 +10,14 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
-    // alignSelf: "stretch",
     fontFamily: "open-sans-bold",
     textAlign: "center",
     fontSize: 32,
     color: colors.white,
-    borderWidth: 2,
+    borderWidth: Platform.select({ ios: 0, android: 2 }),
     borderColor: colors.white,
-    padding: 12,
+    padding: 24,
     borderRadius: 4,
+    minWidth: "90%",
   },
 });

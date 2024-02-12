@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { colors } from "../../colors/colors";
 
 interface Props {
@@ -19,17 +19,20 @@ const GuessLogItem: FC<Props> = ({ guess, roundNumber }) => {
 
 export default GuessLogItem;
 
+const deviceWidth = Dimensions.get("screen").width;
+
 const styles = StyleSheet.create({
   listItem: {
+    flex: 1,
+    padding: deviceWidth < 400 ? 12 : 16,
+    minWidth: "80%",
     borderColor: colors.darkPurple200,
+    marginTop: deviceWidth < 400 ? 8 : 16,
     borderWidth: 2,
     borderRadius: 8,
-    padding: 12,
-    marginVertical: 8,
     backgroundColor: colors.orange,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
     elevation: 4,
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },

@@ -1,5 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import Title from "../components/ui/Title";
 import GuessedNumber from "../components/game/GuessedNumber";
 import PrimaryButton from "../components/ui/PrimaryButton";
@@ -38,6 +44,8 @@ const GameScreen: FC<Props> = ({ pickedNumber, onGameOver }) => {
 
   const [currentGuess, setCurrentGuess] = useState<number>(initialGuess);
   const [guessedRounds, setGuessedRounds] = useState<number[]>([initialGuess]);
+
+  const { width, height } = useWindowDimensions();
 
   useEffect(() => {
     if (currentGuess === pickedNumber) {
@@ -88,10 +96,8 @@ const GameScreen: FC<Props> = ({ pickedNumber, onGameOver }) => {
 
   const guessRoundListLength = guessedRounds.length;
 
-  return (
-    <View style={styles.container}>
-      <Title>Opponent's Guess</Title>
-
+  let content = (
+    <>
       <GuessedNumber guessedNumber={currentGuess} />
 
       <Card>
@@ -115,6 +121,34 @@ const GameScreen: FC<Props> = ({ pickedNumber, onGameOver }) => {
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500)
+    content = (
+      <>
+        <View style={styles.buttonsContainerWide}>
+          <View style={styles.buttonContainder}>
+            <PrimaryButton onPress={increateGuess}>
+              <Ionicons name='add' size={24} color={"white"} />
+            </PrimaryButton>
+          </View>
+
+          <GuessedNumber guessedNumber={currentGuess} />
+
+          <View style={styles.buttonContainder}>
+            <PrimaryButton onPress={decreaseGuess}>
+              <Ionicons name='remove' size={24} color={"white"} />
+            </PrimaryButton>
+          </View>
+        </View>
+      </>
+    );
+  return (
+    <View style={styles.container}>
+      <Title>Opponent's Guess</Title>
+
+      {content}
 
       <View style={styles.listContainer}>
         <FlatList
@@ -138,22 +172,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 24,
-    marginHorizontal: 24,
+
+    alignItems: "center",
   },
 
   buttonsContainer: {
     flexDirection: "row-reverse",
   },
 
+  buttonsContainerWide: {
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    maxWidth: "80%",
+  },
+
   instructionText: {
     marginBottom: 12,
   },
 
-  buttonContainder: { flex: 1 },
+  buttonContainder: {
+    flex: 1,
+  },
 
   listContainer: {
     flex: 1,
     height: "80%",
-    padding: 16,
   },
 });
