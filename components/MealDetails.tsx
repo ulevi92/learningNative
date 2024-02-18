@@ -16,7 +16,7 @@ const MealDetails: FC<Props> = ({
 }) => (
   <View style={styles.mealDetails}>
     <Text style={[styles.detailedText, style]}>{duration}m</Text>
-    <Text style={(styles.detailedText, style)}>{complexity}</Text>
+    <Text style={(styles.detailedText, style)}>{complexity} </Text>
     <Text style={(styles.detailedText, style)}>{affordability}</Text>
   </View>
 );

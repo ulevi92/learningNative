@@ -9,6 +9,10 @@ import { RootStackParamListType } from "./types/RootTypes";
 import { CATEGORIES, MEALS } from "./data/dummy-data";
 import MealDetailScreen from "./screens/MealDetailScreen";
 import NavigationButton from "./components/NavigationButton";
+import DrawerNavigator from "./navigators/DrawerNavigator";
+import FavoriteContextProvider from "./store/context/favoriteContext";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store/store";
 
 const Stack = createNativeStackNavigator<RootStackParamListType>();
 
@@ -19,48 +23,50 @@ export default function App() {
 
       <SafeAreaView />
 
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: "#351401" },
-            headerTintColor: "#fff",
-            contentStyle: { backgroundColor: "#3f2f25" },
-            headerBackTitle: "Back",
-          }}
-        >
-          <Stack.Screen
-            name='MealCategories'
-            component={CategoriesScreen}
-            options={{
-              title: "Meal Categories",
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: "#351401" },
+              headerTintColor: "#fff",
+              contentStyle: { backgroundColor: "#3f2f25" },
+              headerBackTitle: "Back",
             }}
-          />
+          >
+            <Stack.Screen
+              name='Drawer'
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+              }}
+            />
 
-          <Stack.Screen
-            name='MealOverView'
-            component={MealOverView}
-            options={({ route }) => {
-              const params = route.params.categoryId;
-              const title = CATEGORIES.find(
-                (category) => category.id === params
-              )?.title;
+            <Stack.Screen
+              name='MealOverView'
+              component={MealOverView}
+              options={({ route }) => {
+                const params = route.params.categoryId;
+                const title = CATEGORIES.find(
+                  (category) => category.id === params
+                )?.title;
 
-              return { title };
-            }}
-          />
+                return { title };
+              }}
+            />
 
-          <Stack.Screen
-            name='MealDetailScreen'
-            component={MealDetailScreen}
-            options={({ route }) => {
-              const params = route.params.mealId;
-              const title = MEALS.find((meal) => meal.id === params)?.title;
+            <Stack.Screen
+              name='MealDetailScreen'
+              component={MealDetailScreen}
+              options={({ route }) => {
+                const params = route.params.mealId;
+                const title = MEALS.find((meal) => meal.id === params)?.title;
 
-              return { title };
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+                return { title };
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </>
   );
 }

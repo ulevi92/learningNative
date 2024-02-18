@@ -2,7 +2,7 @@ import { MEALS } from "../data/dummy-data";
 
 import { FlatList, StyleSheet, View } from "react-native";
 
-import MealItem from "../components/MealItem.ios";
+import MealItem from "../components/MealItem";
 import { MealOverViewScreenProps } from "../types/RootTypes";
 import { FC } from "react";
 import { useAppNavigation } from "../hooks/customHooks";
