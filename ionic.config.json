@@ -1,0 +1,7 @@
+{
+  "name": "learningnative",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
